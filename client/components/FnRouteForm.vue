@@ -23,25 +23,25 @@
       <div class="form-group">
         <label class="col-sm-3 control-label">Memory, MB</label>
         <div class="col-sm-9">
-          <input type="number" class="form-control" placeholder="e.g. 128"  v-model="route.memory" @keydown.enter.prevent="">
+          <input type="number" class="form-control" placeholder="e.g. 128"  v-model.number="route.memory" @keydown.enter.prevent="">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-3 control-label">Max Concurrency</label>
         <div class="col-sm-9">
-          <input type="number" class="form-control" placeholder="e.g. 100"  v-model="route.max_concurrency" @keydown.enter.prevent="">
+          <input type="number" class="form-control" placeholder="e.g. 100"  v-model.number="route.max_concurrency" @keydown.enter.prevent="">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-3 control-label">Timeout, sec</label>
         <div class="col-sm-9">
-          <input type="number" class="form-control" placeholder="e.g. 60"  v-model="route.timeout" @keydown.enter.prevent="">
+          <input type="number" class="form-control" placeholder="e.g. 60"  v-model.number="route.timeout" @keydown.enter.prevent="">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-3 control-label">Idle Timeout, sec</label>
         <div class="col-sm-9">
-          <input type="number" class="form-control" placeholder="e.g. 60"  v-model="route.idle_timeout" @keydown.enter.prevent="">
+          <input type="number" class="form-control" placeholder="e.g. 60"  v-model.number="route.idle_timeout" @keydown.enter.prevent="">
         </div>
       </div>
 
