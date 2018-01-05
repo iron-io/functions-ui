@@ -28,6 +28,7 @@
             <th>Memory</th>
             <th>MaxCC</th>
             <th>Timeout</th>
+            <th>Idle Timeout</th>
             <th width="140">Actions</th>
           </thead>
           <tbody>
@@ -38,6 +39,7 @@
               <td>{{route.memory}} MB</td>
               <td>{{route.max_concurrency}}</td>
               <td>{{route.timeout}}</td>
+              <td>{{route.idle_timeout}}</td>
               <td>
                 <div class="toolbar">
 
