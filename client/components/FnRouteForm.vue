@@ -38,6 +38,12 @@
           <input type="number" class="form-control" placeholder="e.g. 60"  v-model="route.timeout" @keydown.enter.prevent="">
         </div>
       </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">Idle Timeout, sec</label>
+        <div class="col-sm-9">
+          <input type="number" class="form-control" placeholder="e.g. 60"  v-model="route.idle_timeout" @keydown.enter.prevent="">
+        </div>
+      </div>
 
       <hr>
 
