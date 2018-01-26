@@ -13,6 +13,12 @@
           <input type="text" class="form-control" v-model="route.path" disabled>
         </div>
       </div>
+      <div class="form-group" v-if="route.jwt_key">
+        <label class="col-sm-3 control-label">Jwt Key</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" v-model="route.jwt_key">
+        </div>
+      </div>
       <div class="form-group">
         <label class="col-sm-3 control-label">Payload</label>
         <div class="col-sm-9">
@@ -71,6 +77,9 @@ export default {
         method: 'POST',
         data: JSON.stringify({payload: this.payload}),
         contentType: "application/json",
+        headers: {
+          'X-Jwt-Key': this.route.jwt_key
+        },
         dataType: 'json',
         success: (res) => {
           console.log("res", res);
