@@ -21,6 +21,13 @@
         </div>
       </div>
       <div class="form-group">
+        <label class="col-sm-3 control-label">Format</label>
+        <div class="col-sm-9">
+          <label class="radio-inline"><input type="radio" value="default" name="format" v-model="route.format"> Default</label>
+          <label class="radio-inline"><input type="radio" value="http" name="format" v-model="route.format"> HTTP (HotFunction)</label>
+        </div>
+      </div>
+      <div class="form-group">
         <label class="col-sm-3 control-label">Memory, MB</label>
         <div class="col-sm-9">
           <input type="number" class="form-control" placeholder="e.g. 128"  v-model.number="route.memory" @keydown.enter.prevent="">
