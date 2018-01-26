@@ -30,10 +30,10 @@
       </li>
       <li>
         <br>
-        <a href="http://get.iron.io/open-slack" target="_blank">
+        <a href="http://get.iron.io/functions-slack" target="_blank">
           Join our community:<br />
           <br>
-          <img src="https://open-iron.herokuapp.com/badge.svg" alt="">
+          <img src="https://iron-functions-slack.herokuapp.com/badge.svg" alt="">
         </a>
       </li>
     </ul>
