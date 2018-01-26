@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var jwt = require('jsonwebtoken');
 var helpers = require('../helpers/app-helpers.js');
 
 router.get('/:app/routes', function(req, res) {
