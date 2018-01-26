@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    working_directory: ~/go/src/github.com/functions-ui
+    environment:
+      - GOPATH=/home/circleci/go
+      - GOVERSION=1.8.3
+      - OS=linux
+      - ARCH=amd64
+    steps:
+      - checkout
+      # update Docker
+      - run: |
+          docker version
+          sudo service docker stop
+          curl -fsSL https://get.docker.com/ | sudo sh
+      - run: docker version
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git config --global user.email "circleci@iron.io"
+              git config --global user.name "CircleCI"
+              docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+              ./release.sh
+              git branch --set-upstream-to=origin/${CIRCLE_BRANCH} ${CIRCLE_BRANCH}
+            fi
