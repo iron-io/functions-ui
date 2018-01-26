@@ -16,7 +16,7 @@
       <div class="form-group" v-if="route.jwt_key">
         <label class="col-sm-3 control-label">Jwt Key</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" v-model="route.jwt_key">
+          <input type="text" class="form-control" v-model="route.jwt_key" disabled>
         </div>
       </div>
       <div class="form-group">
