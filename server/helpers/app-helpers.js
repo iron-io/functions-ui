@@ -30,11 +30,12 @@ exports.postApiEndpoint = function(req, path, params, postfields, successcb, err
   exports.execApiEndpoint('POST', req, path, params, postfields, successcb, errorcb);
 }
 
-exports.execApiEndpoint = function(method, req, path, params, postfields, successcb, errorcb) {
+exports.execApiEndpoint = function(method, req, path, params, postfields, successcb, errorcb, headers) {
   var options = {
     uri: exports.apiFullUrl(req, path),
     method: method,
-    json: postfields
+    json: postfields,
+    headers: headers
   };
 
   console.log(options.method + " " + options.uri + ", params: ", options.json);
@@ -42,11 +43,12 @@ exports.execApiEndpoint = function(method, req, path, params, postfields, succes
   request(options, function(error, response, body){exports.requrestCb(successcb, errorcb, error, response, body)});
 }
 
-exports.execApiEndpointRaw = function(method, req, path, params, postfields, successcb, errorcb) {
+exports.execApiEndpointRaw = function(method, req, path, params, postfields, successcb, errorcb, headers) {
   var options = {
     uri: exports.apiFullUrl(req, path),
     method: method,
-    body: postfields
+    body: postfields,
+    headers: headers
   };
 
   console.log(options.method + " " + options.uri + ", params: ", options.body);

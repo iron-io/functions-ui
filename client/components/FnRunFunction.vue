@@ -13,15 +13,25 @@
           <input type="text" class="form-control" v-model="route.path" disabled>
         </div>
       </div>
+      <div class="form-group" v-if="route.jwt_key">
+        <label class="col-sm-3 control-label">Jwt Key</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" v-model="route.jwt_key" disabled>
+        </div>
+      </div>
       <div class="form-group">
         <label class="col-sm-3 control-label">Payload</label>
         <div class="col-sm-9">
-          <textarea class="form-control" v-model="payload" placeholder="e.g. {}"></textarea>
+          <textarea class="form-control" v-model="payload" placeholder="e.g. {}" v-on:change="calculateToken"></textarea>
         </div>
       </div>
-      <div>
+      <div v-if="!route.jwt_key">
         <h5>cURL command</h5>
         <pre>curl -X POST -d '{{payload}}' {{apiUrl}}r/{{encodeURIComponent(this.app.name)}}/{{encodeURIComponent(this.route.path)}}</pre>
+      </div>
+      <div v-if="route.jwt_key">
+        <h5>cURL command</h5>
+        <pre>curl -X POST -H 'Authorization: Bearer {{authToken}}' -d '{{payload}}' {{apiUrl}}r/{{encodeURIComponent(this.app.name)}}/{{encodeURIComponent(this.route.path)}}</pre>
       </div>
 
       <div v-show="output">
@@ -40,6 +50,7 @@
 import Modal from '../lib/VueBootstrapModal.vue';
 import { eventBus } from '../client';
 import { defaultErrorHandler, getApiUrl } from '../lib/helpers';
+const jwt = require('jsonwebtoken');
 
 export default {
   props: ['app'],
@@ -52,6 +63,7 @@ export default {
       show: false,
       submitting: false,
       payload: '{}',
+      authToken: null,
       output: null,
       apiUrl: ''
     }
@@ -71,6 +83,9 @@ export default {
         method: 'POST',
         data: JSON.stringify({payload: this.payload}),
         contentType: "application/json",
+        headers: {
+          'X-Jwt-Key': this.route.jwt_key
+        },
         dataType: 'json',
         success: (res) => {
           console.log("res", res);
@@ -84,6 +99,9 @@ export default {
         }
       })
     },
+    calculateToken: function() {
+      this.authToken = jwt.sign(this.payload, this.route.jwt_key);
+    },
   },
   created:  function (){
     var t = this;
@@ -92,6 +110,12 @@ export default {
       this.payload = '{}';
       this.output = null;
       this.show = true;
+      if(this.route.jwt_key) {
+        this.calculateToken();
+      }
+    });
+    eventBus.$on('calculateToken', () => {
+      this.calculateToken();
     });
     getApiUrl( url => t.apiUrl = url );
   }

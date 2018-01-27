@@ -14,6 +14,12 @@
         </div>
       </div>
       <div class="form-group">
+        <label class="col-sm-3 control-label">Jwt Key</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder=""  v-model="route.jwt_key" @keydown.enter.prevent="">
+        </div>
+      </div>
+      <div class="form-group">
         <label class="col-sm-3 control-label">Type</label>
         <div class="col-sm-9">
           <label class="radio-inline"><input type="radio" value="sync" name="type" v-model="route.type"> Sync</label>

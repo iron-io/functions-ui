@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var jwt = require('jsonwebtoken');
 var helpers = require('../helpers/app-helpers.js');
 
 router.get('/:app/routes', function(req, res) {
@@ -62,8 +63,16 @@ router.post('/:app/routes/:route/run', function(req, res) {
     res.status(400).json({msg: text});
   }
   var data = req.body.payload;
+  if (req.headers['x-jwt-key']) {
+    var token = jwt.sign(data, req.headers['x-jwt-key']);
+    var authHeader = {'Authorization': 'Bearer ' + token };
+  }
+  else {
+    var authHeader = {};
+  }
+  var path = "/r/" + encodeURIComponent(req.params.app)+ "/" + encodeURIComponent(req.params.route);
+  helpers.execApiEndpointRaw('POST', req,  path, {}, data, successcb, errcb, authHeader);
 
-  helpers.execApiEndpointRaw('POST', req,  "/r/" + encodeURIComponent(req.params.app)+ "/" + encodeURIComponent(req.params.route), {}, data, successcb, errcb);
 });
 
 
