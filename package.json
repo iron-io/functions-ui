@@ -45,7 +45,7 @@
     "postcss-hexrgba": "^0.2.0",
     "postcss-import": "^8.1.2",
     "postcss-loader": "^0.9.1",
-    "postcss-url": "^5.1.2",
+    "postcss-url": "^7.3.0",
     "style-loader": "^0.13.0",
     "stylelint": "^7.1.0",
     "stylelint-loader": "^6.2.0",
