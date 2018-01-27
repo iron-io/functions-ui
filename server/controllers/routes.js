@@ -63,8 +63,13 @@ router.post('/:app/routes/:route/run', function(req, res) {
     res.status(400).json({msg: text});
   }
   var data = req.body.payload;
-  var token = jwt.sign(data, req.headers['x-jwt-key']);
-  var authHeader = {'Authorization': 'Bearer ' + token };
+  if (req.headers['x-jwt-key']) {
+    var token = jwt.sign(data, req.headers['x-jwt-key']);
+    var authHeader = {'Authorization': 'Bearer ' + token };
+  }
+  else {
+    var authHeader = {};
+  }
   var path = "/r/" + encodeURIComponent(req.params.app)+ "/" + encodeURIComponent(req.params.route);
   helpers.execApiEndpointRaw('POST', req,  path, {}, data, successcb, errcb, authHeader);
 
