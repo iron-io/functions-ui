@@ -1,6 +1,7 @@
 var http = require('http');
 var url = require('url');
 var request = require('request');
+var jwt = require('jsonwebtoken');
 
 exports.extend = function(target) {
     var sources = [].slice.call(arguments, 1);
@@ -20,17 +21,33 @@ exports.apiFullUrl = function(req, path) {
 
 exports.getApiEndpoint = function(req, path, params, successcb, errorcb) {
   var url = exports.apiFullUrl(req, path);
-
-  console.log("GET " + url + ", params: ", params);
-
-  request({url: url, qs: params}, function(error, response, body){exports.requrestCb(successcb, errorcb, error, response, body)});
+  var headers = {}
+  if (process.env.JWT_AUTH_KEY) {
+    var token = jwt.sign(params, process.env.JWT_AUTH_KEY);
+    headers['Authorization'] = 'Bearer ' + token;
+  }
+    console.log("GET " + url + ", params: ", params, " headers: ", headers);
+  var options = {
+      url: url,
+      qs: params,
+      headers: headers
+  }
+  request(options, function(error, response, body){exports.requrestCb(successcb, errorcb, error, response, body)});
 }
 
 exports.postApiEndpoint = function(req, path, params, postfields, successcb, errorcb) {
-  exports.execApiEndpoint('POST', req, path, params, postfields, successcb, errorcb);
+  exports.execApiEndpoint('POST', req, path, params, postfields, successcb, errorcb, {});
 }
 
 exports.execApiEndpoint = function(method, req, path, params, postfields, successcb, errorcb, headers) {
+  if(headers == null) {
+      headers = {};
+  }
+  if (process.env.JWT_AUTH_KEY) {
+    var token = jwt.sign(params, process.env.JWT_AUTH_KEY);
+    headers['Authorization'] = 'Bearer ' + token;
+  }
+
   var options = {
     uri: exports.apiFullUrl(req, path),
     method: method,
