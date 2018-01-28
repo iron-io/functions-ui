@@ -27,11 +27,11 @@
       </div>
       <div v-if="!route.jwt_key">
         <h5>cURL command</h5>
-        <pre>curl -X POST -d '{{payload}}' {{apiUrl}}r/{{encodeURIComponent(this.app.name)}}/{{encodeURIComponent(this.route.path)}}</pre>
+        <pre>curl -X POST -d '{{payload}}' {{apiUrl}}r/{{fmtStr(this.app.name)}}{{fmtStr(this.route.path)}}</pre>
       </div>
       <div v-if="route.jwt_key">
         <h5>cURL command</h5>
-        <pre>curl -X POST -H 'Authorization: Bearer {{authToken}}' -d '{{payload}}' {{apiUrl}}r/{{encodeURIComponent(this.app.name)}}/{{encodeURIComponent(this.route.path)}}</pre>
+        <pre>curl -X POST -H 'Authorization: Bearer {{authToken}}' -d '{{payload}}' {{apiUrl}}r/{{fmtStr(this.app.name)}}{{fmtStr(this.route.path)}}</pre>
       </div>
 
       <div v-show="output">
@@ -71,6 +71,9 @@ export default {
   methods: {
     closed: function(){
       this.show = false;
+    },
+    fmtStr: function(str){
+      return encodeURI(str);
     },
     ok: function(){
       var t = this;
