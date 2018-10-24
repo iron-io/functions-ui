@@ -4,9 +4,10 @@
 
 Just run the container.
 `API_URL` is IronFunctions API URL
+__NOTE: latest version is broken, please use 0.0.2__
 
 ```
-docker run --rm -it --link functions:api -p 4000:4000 -e "API_URL=http://api:8080" iron/functions-ui
+docker run --rm -it --link functions:api -p 4000:4000 -e "API_URL=http://api:8080" iron/functions-ui:0.0.2
 ```
 
 # Screenshots
